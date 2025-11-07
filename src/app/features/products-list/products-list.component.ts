@@ -11,9 +11,12 @@ import { Router } from '@angular/router';
 export class ProductsListComponent implements OnInit {
   products: Product[] = [];
   filtered: Product[] = [];
+
+  // TODO: implementar searchTerm e selectedCategory para o filtro
   searchTerm = '';
   selectedCategory = '';
 
+  // TODO: usar essa lista de categorias no select de filtro
   get categories(): string[] {
     return [...new Set(this.products.map(p => p.category))];
   }
@@ -24,6 +27,7 @@ export class ProductsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Carrega a lista inicial de produtos
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
       this.filtered = data;
@@ -31,23 +35,14 @@ export class ProductsListComponent implements OnInit {
   }
 
   applyFilter(): void {
-    this.filtered = this.products.filter(p => {
-      const matchesName =
-        !this.searchTerm ||
-        p.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-      const matchesCategory =
-        !this.selectedCategory || p.category === this.selectedCategory;
-      return matchesName && matchesCategory;
-    });
+    // TODO:
   }
 
   clearFilter(): void {
-    this.searchTerm = '';
-    this.selectedCategory = '';
-    this.filtered = [...this.products];
+    // TODO:
   }
 
   goToDetail(product: Product): void {
-    this.router.navigate(['/products', product.id]);
+    // TODO:
   }
 }

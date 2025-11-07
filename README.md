@@ -20,7 +20,7 @@ O objetivo deste desafio é avaliar sua capacidade de:
 Implemente as seguintes melhorias no projeto:
 
 1. **Filtrar produtos**  
-   - Permitir buscar produtos por nome e/ou categoria.
+   - Permitir filtrar a tabela de produtos por nome e/ou categoria.
 
 2. **Detalhamento de produto**  
    - Ao clicar em um item na lista, o usuário deve ser levado para uma página de detalhes que exibe informações completas do produto.
@@ -28,6 +28,11 @@ Implemente as seguintes melhorias no projeto:
 3. **Criar um formulário para adicionar novos produtos.**   
    - Crie um novo componente, contendo o formulário para adicionar novos produtos a uma lista. Neste caso, não precisa se preocupar com a persistência dos sites, apenas salve a nova informação em tempo de execução.
 
+4. **Ordenação de tabela**
+   - Permitir ordenar a tabela pelo preço ou quantidade do estoque. Sinta-se livre para criar uma tabela na mão ou usar um pacote existente para isso.
+
+***Bonus***
+   O projeto hoje não possui um visual padronizado, sendo apenas uma casca. Sinta-se livre para adicionar um layout moderno ao mesmo. Não se sinta pressionado a fazer esse bonus e foque nas outras tarefas.
 ---
 
 ## Estrutura do Projeto

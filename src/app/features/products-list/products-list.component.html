@@ -1,6 +1,7 @@
 <div class="page">
   <h1>TechStore - Produtos</h1>
 
+  <!-- TODO: implementar filtro funcional usando searchTerm, selectedCategory e applyFilter() -->
   <div class="filters">
     <input
       type="text"
@@ -11,7 +12,9 @@
 
     <select [(ngModel)]="selectedCategory" (change)="applyFilter()">
       <option value="">Todas categorias</option>
-      <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      <option *ngFor="let c of categories" [value]="c">
+        {{ c }}
+      </option>
     </select>
 
     <button (click)="clearFilter()">Limpar filtros</button>
