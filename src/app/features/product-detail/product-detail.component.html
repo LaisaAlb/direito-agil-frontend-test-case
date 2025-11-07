@@ -1,0 +1,17 @@
+<div class="page" *ngIf="!isLoading && product; else loadingOrNotFound">
+  <h2>{{ product.name }}</h2>
+  <p><strong>Categoria:</strong> {{ product.category }}</p>
+  <p><strong>Preço:</strong> R$ {{ product.price | number : '1.2-2' }}</p>
+  <p><strong>Estoque:</strong> {{ product.stock }}</p>
+  <p><strong>Descrição:</strong> {{ product.description }}</p>
+
+  <button (click)="goBack()">Voltar</button>
+</div>
+
+<ng-template #loadingOrNotFound>
+  <div class="page">
+    <p *ngIf="isLoading">Carregando...</p>
+    <p *ngIf="!isLoading && !product">Produto não encontrado.</p>
+    <button *ngIf="!isLoading" (click)="goBack()">Voltar</button>
+  </div>
+</ng-template>

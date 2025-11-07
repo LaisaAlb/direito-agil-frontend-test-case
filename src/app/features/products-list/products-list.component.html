@@ -1,0 +1,46 @@
+<div class="page">
+  <h1>TechStore - Produtos</h1>
+
+  <div class="filters">
+    <input
+      type="text"
+      placeholder="Buscar por nome"
+      [(ngModel)]="searchTerm"
+      (input)="applyFilter()"
+    />
+
+    <select [(ngModel)]="selectedCategory" (change)="applyFilter()">
+      <option value="">Todas categorias</option>
+      <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+    </select>
+
+    <button (click)="clearFilter()">Limpar filtros</button>
+  </div>
+
+  <table *ngIf="filtered.length; else emptyState">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Categoria</th>
+        <th>Preço</th>
+        <th>Estoque</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let product of filtered"
+        (click)="goToDetail(product)"
+        class="row"
+      >
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>R$ {{ product.price | number : '1.2-2' }}</td>
+        <td>{{ product.stock }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #emptyState>
+    <p>Nenhum produto encontrado.</p>
+  </ng-template>
+</div>
