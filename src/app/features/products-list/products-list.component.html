@@ -1,49 +1,121 @@
-<div class="page">
-  <h1>TechStore - Produtos</h1>
+<app-header></app-header>
 
-  <!-- TODO: implementar filtro funcional usando searchTerm, selectedCategory e applyFilter() -->
-  <div class="filters">
-    <input
-      type="text"
-      placeholder="Buscar por nome"
-      [(ngModel)]="searchTerm"
-      (input)="applyFilter()"
-    />
+<div class="container">
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Gerenciamento de Produtos</h1>
+      <p>Gerencie seu inventário de forma eficiente</p>
+    </div>
 
-    <select [(ngModel)]="selectedCategory" (change)="applyFilter()">
-      <option value="">Todas categorias</option>
-      <option *ngFor="let c of categories" [value]="c">
-        {{ c }}
-      </option>
-    </select>
+    <div class="card">
+      <!-- filtros -->
+      <div class="filters">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar por nome..."
+            [(ngModel)]="searchTerm"
+            (input)="applyFilter()"
+          />
+        </div>
 
-    <button (click)="clearFilter()">Limpar filtros</button>
-  </div>
+        <div class="form-group">
+          <select
+            class="form-control"
+            [(ngModel)]="selectedCategory"
+            (change)="applyFilter()"
+          >
+            <option value="">Todas as categorias</option>
+            <option *ngFor="let c of categories" [value]="c">
+              {{ c }}
+            </option>
+          </select>
+        </div>
 
-  <table *ngIf="filtered.length; else emptyState">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Categoria</th>
-        <th>Preço</th>
-        <th>Estoque</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let product of filtered"
-        (click)="goToDetail(product)"
-        class="row"
-      >
-        <td>{{ product.name }}</td>
-        <td>{{ product.category }}</td>
-        <td>R$ {{ product.price | number : '1.2-2' }}</td>
-        <td>{{ product.stock }}</td>
-      </tr>
-    </tbody>
-  </table>
+        <button class="btn btn-outline" (click)="clearFilter()">
+          <lucide-icon name="refreshCcw" class="icon"></lucide-icon>
+          Limpar
+        </button>
+      </div>
 
-  <ng-template #emptyState>
-    <p>Nenhum produto encontrado.</p>
-  </ng-template>
+      <!-- tabela -->
+      <div class="table-container" *ngIf="filtered.length; else emptyState">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th (click)="sortBy('price')" class="sortable">
+                Preço
+                <lucide-icon name="arrow-up-down" class="icon fixed-icon"></lucide-icon>
+              </th>
+              <th (click)="sortBy('stock')" class="sortable">
+                Estoque
+                <lucide-icon name="arrow-up-down" class="icon fixed-icon"></lucide-icon>
+              </th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let product of filtered"
+              (click)="goToDetail(product)"
+              (mousemove)="onMouseMove($event)"
+              (mouseenter)="onMouseEnterRow()"
+              (mouseleave)="onMouseLeaveRow()"
+            >
+              <td class="product-name">{{ product.name }}</td>
+              <td><span class="category-tag">{{ product.category }}</span></td>
+              <td class="price">R$ {{ product.price | number : '1.2-2' }}</td>
+              <td>
+                <span
+                  [class]="'stock ' + (product.stock > 10 ? 'in-stock' : 'low-stock')"
+                >
+                  {{ product.stock }} unidades
+                </span>
+              </td>
+              <td (click)="$event.stopPropagation()">
+                <button class="btn btn-outline" [routerLink]="['/products/edit', product.id]">
+                  <lucide-icon name="edit" class="icon"></lucide-icon>
+                  Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #emptyState>
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <lucide-icon name="package" class="icon-large"></lucide-icon>
+          </div>
+          <h3>Nenhum produto encontrado</h3>
+          <p>Tente ajustar seus filtros de busca ou adicionar um novo produto.</p>
+          <button class="btn btn-primary" routerLink="/products/new">
+            <lucide-icon name="plus" class="icon"></lucide-icon>
+            Adicionar Primeiro Produto
+          </button>
+        </div>
+      </ng-template>
+
+      <div class="actions-footer">
+        <button class="btn btn-primary" routerLink="/products/new">
+          <lucide-icon name="plus" class="icon"></lucide-icon>
+          Novo Produto
+        </button>
+        <div class="summary">{{ filtered.length }} produto(s) encontrado(s)</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- tooltip flutuante -->
+<div
+  class="tooltip"
+  [ngStyle]="{ top: tooltipY + 'px', left: tooltipX + 'px' }"
+  *ngIf="showTooltip"
+>
+  → Ver detalhes
 </div>
