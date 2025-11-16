@@ -1,1 +1,92 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  /* Cores */
+  --primary: #4f46e5;
+  --primary-light: #6366f1;
+  --secondary: #0ea5e9;
+  --accent: #f59e0b;
+
+  /* Textos */
+  --text-primary: #000e76;
+  --text-secondary: #6366f1;
+  --text-write: #ffffff;
+
+  /* Background */
+  --bg-primary: #000e76;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+
+  /* Estados */
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #f59e0b;
+
+
+  /* Layout */
+  --radius: 0.5rem;
+  --shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+body {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+button, .btn {
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem; 
+}
+
+.btn-outline lucide-icon {
+  stroke-width: 2.2; 
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-light);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.card {
+  background: var(--bg-primary);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
