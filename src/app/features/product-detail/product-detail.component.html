@@ -1,19 +1,80 @@
-<!-- TODO: implementar tela de detalhes do produto -->
+<app-header></app-header>
 
-<div class="page" *ngIf="!isLoading && product; else loadingOrNotFound">
-  <h2>{{ product.name }}</h2>
-  <p><strong>Categoria:</strong> {{ product.category }}</p>
-  <p><strong>Preço:</strong> R$ {{ product.price | number : '1.2-2' }}</p>
-  <p><strong>Estoque:</strong> {{ product.stock }}</p>
-  <p><strong>Descrição:</strong> {{ product.description }}</p>
+<div class="container">
+  <main class="main-content">
+    <div class="page-header">
+      <h2>Detalhes do Produto</h2>
+    </div>
 
-  <button (click)="goBack()">Voltar</button>
+    <div *ngIf="!isLoading && product; else loadingOrNotFound">
+      <div class="card product-detail">
+        <div class="product-header">
+          <h2>{{ product.name }}</h2>
+          <span class="category-badge">{{ product.category }}</span>
+        </div>
+
+        <div class="product-info-grid">
+          <div class="info-item">
+            <label>Preço</label>
+            <span class="price">R$ {{ product.price | number : '1.2-2' }}</span>
+          </div>
+
+          <div class="info-item">
+            <label>Estoque</label>
+            <span [class]="'stock ' + (product.stock > 10 ? 'in-stock' : 'low-stock')">
+              {{ product.stock }} unidades
+            </span>
+          </div>
+
+          <div class="info-item full-width">
+            <label>Descrição</label>
+            <p class="description">{{ product.description || 'Sem descrição' }}</p>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+
+          <button class="btn btn-outline" (click)="goBack()">
+            <lucide-icon name="arrow-left"></lucide-icon>
+            Voltar
+          </button>
+
+          <button class="btn btn-primary" [routerLink]="['/products/edit', product.id]">
+            <lucide-icon name="pencil"></lucide-icon>
+            Editar
+          </button>
+
+          <button class="btn btn-error" (click)="showDeleteModal = true">
+            <lucide-icon name="trash-2"></lucide-icon>
+            Excluir
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+    <ng-template #loadingOrNotFound>
+      <div class="card">
+        <div *ngIf="isLoading" class="loading">
+          <div class="spinner"></div>
+          <p>Carregando produto...</p>
+        </div>
+
+        <div *ngIf="!isLoading && !product" class="empty-state">
+          <div class="empty-state-icon">❌</div>
+          <h3>Produto não encontrado</h3>
+          <p>O produto que você está procurando não existe ou foi removido.</p>
+          <button class="btn btn-primary" (click)="goBack()">
+            ← Voltar para a lista
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </main>
 </div>
 
-<ng-template #loadingOrNotFound>
-  <div class="page">
-    <p *ngIf="isLoading">Carregando...</p>
-    <p *ngIf="!isLoading && !product">Produto não encontrado.</p>
-    <button *ngIf="!isLoading" (click)="goBack()">Voltar</button>
-  </div>
-</ng-template>
+<app-confirmation-modal *ngIf="showDeleteModal" title="Excluir Produto"
+  message="Tem certeza que deseja excluir '{{ product?.name }}'? Esta ação não pode ser desfeita."
+  [showConfirmButtons]="true" (confirm)="deleteProduct()" (cancel)="showDeleteModal = false">
+</app-confirmation-modal>

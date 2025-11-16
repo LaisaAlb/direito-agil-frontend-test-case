@@ -1,11 +1,196 @@
-.page {
-  max-width: 600px;
-  margin: 24px auto;
-  padding: 16px;
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
 
-  button {
-    margin-top: 16px;
-    padding: 8px 12px;
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    align-items: center;
+  }
+
+  .back-btn {
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid #d1d5db;
+    background: #fff;
     cursor: pointer;
+    transition: 0.2s;
+    font-size: 0.5rem;
+    color: var(--text-primary);
+
+    &:hover {
+      background: #f1f5f9;
+    }
+  }
+}
+
+/* Card principal */
+.product-detail {
+  background: #fff;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Header do card */
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .category-badge {
+    background: var(--primary);
+    color: var(--text-write);
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}
+
+/* Grid das informações */
+.product-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .price {
+    font-size: 1.2rem;
+    color: var(--primary);
+    font-weight: 600;
+  }
+}
+
+.info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.description {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: var(--radius);
+  line-height: 1.6;
+  color: var(--text-primary);
+  border-left: 4px solid var(--primary);
+}
+
+/* Estoque */
+.stock {
+  font-weight: 600;
+
+  &.in-stock {
+    color: var(--success);
+  }
+
+  &.low-stock {
+    color: var(--danger);
+  }
+}
+
+/* Botões */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .btn {
+    padding: 0.8rem 1.4rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &.btn-primary {
+      background: var(--primary);
+      color: var(--text-write);
+
+      &:hover {
+        background: #4338ca;
+      }
+    }
+
+    &.btn-error {
+      background: var(--danger);
+      color: var(--text-write);
+
+      &:hover {
+        background: #b91c1c;
+      }
+    }
+  }
+}
+
+/* Loading e estados vazios */
+.loading,
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+
+  p {
+    margin-top: 1rem;
+    color: var(--text-secondary);
+  }
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 4px solid #e2e8f0;
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .product-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    .btn {
+      flex: 1;
+      justify-content: center;
+    }
   }
 }
