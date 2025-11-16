@@ -1,0 +1,109 @@
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+/* Modal principal */
+.modal {
+  background: #ffffff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  animation: modalSlideIn 0.2s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Título do modal */
+.modal h2 {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Mensagem do modal */
+.modal p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+/* Ações do modal */
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actions .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  min-width: 90px;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+/* Botão Cancelar (Negativo) */
+.actions .cancel {
+  border: 1px solid var(--danger);
+  background: #fff;
+  color: var(--danger);
+}
+
+.actions .cancel:hover {
+  background: var(--danger);
+  color: var(--text-write);
+}
+
+/* Botão Confirmar ou OK (Positivo) */
+.actions .confirm,
+.actions .ok {
+  border: none;
+  background: var(--success);
+  color: var(--text-write);
+}
+
+.actions .confirm:hover,
+.actions .ok:hover {
+  background: #16a34a; /* Verde mais escuro opcional */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions .btn {
+    width: 100%;
+  }
+}

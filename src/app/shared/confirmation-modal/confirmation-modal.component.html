@@ -1,0 +1,20 @@
+<div class="overlay">
+  <div class="modal">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+
+    <div class="actions">
+      <button *ngIf="showConfirmButtons" class="cancel" (click)="cancel.emit()">
+        Não
+      </button>
+
+      <button *ngIf="showConfirmButtons" class="confirm" (click)="confirm.emit()">
+        Sim
+      </button>
+
+      <button *ngIf="!showConfirmButtons" class="ok" (click)="cancel.emit()">
+        OK
+      </button>
+    </div>
+  </div>
+</div>
