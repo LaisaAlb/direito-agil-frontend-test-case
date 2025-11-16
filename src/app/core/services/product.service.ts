@@ -40,4 +40,30 @@ export class ProductService {
   getProductById(id: number): Observable<Product | undefined> {
     return of(MOCK_PRODUCTS.find(p => p.id === id));
   }
+
+  createProduct(product: Product): Observable<Product> {
+    const newId = MOCK_PRODUCTS.length
+      ? Math.max(...MOCK_PRODUCTS.map(p => p.id)) + 1
+      : 1;
+
+    const newProduct = { ...product, id: newId };
+
+    MOCK_PRODUCTS.push(newProduct);
+
+    return of(newProduct);
+  }
+
+  updateProduct(updated: Product) {
+    const index = MOCK_PRODUCTS.findIndex(p => p.id === updated.id);
+    if (index !== -1) {
+      MOCK_PRODUCTS[index] = updated;
+    }
+  }
+
+  deleteProduct(id: number) {
+    const index = MOCK_PRODUCTS.findIndex(p => p.id === id);
+    if (index !== -1) {
+      MOCK_PRODUCTS.splice(index, 1);
+    }
+  }
 }
